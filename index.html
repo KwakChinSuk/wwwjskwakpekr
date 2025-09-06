@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ko">
+<head>    
+  
+  <meta charset="utf-8" />
+  
+  <!-- 기본 SEO -->
+  <title>Alog | Google Analytics 방문 데이터  대시보드 솔루션</title>
+  <meta name="title" content="Alog - Google Analytics 방문 데이터 자동 수집 & 대시보드">
+  <meta name="description" content="Google Analytics 설치만 했다면, 추가 태깅 없이 API를 통해 방문 데이터를 자동 수집하고 다양한 지표를 시각화하는 솔루션. 복잡한 GA 화면 대신 직관적인 대시보드를 제공합니다.">
+  <meta name="keywords" content="Google Analytics, GA4, 방문 데이터, 웹사이트 분석, GA API, 데이터 자동화, 방문 통계, 대시보드, 웹 분석 솔루션">
+  <meta name="author" content="Alog">
+  <meta name="robots" content="index, follow">
+  <meta name="naver-site-verification" content="44a11ed40260f9d66a1c00fcde283a6742b77ce1" />
+
+  <!-- Open Graph (SNS 공유용) -->
+  <meta property="og:title" content="Alog - GA 데이터를 더 쉽게, 추가 태깅 없이 활용">
+  <meta property="og:description" content="GA API 기반 자동화로 방문 통계와 지표를 한눈에 확인하세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.jskwak.pe.kr">
+  <meta property="og:image" content="https://www.jskwak.pe.kr/alog/image/favicon.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alog - GA 방문 데이터 자동화">
+  <meta name="twitter:description" content="Google Analytics API 기반 방문 데이터 자동 수집 & 대시보드 제공.">
+  <meta name="twitter:image" content="image/favicon.png">
+
+  <link rel="icon" type="image/x-icon" href="alog/image/favicon.png">
+  <style>
+    :root{
+      --bg:#f7f9fc;
+      --card:#ffffff;
+      --muted:#5b6b7e;
+      --text:#1d2733;
+      --accent:#175cd3;
+      --accent-2:#079455;
+      --danger:#d92d20;
+      --border:#e5edf5;
+      --shadow: 0 8px 24px rgba(16,24,40,.08);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Apple SD Gothic Neo,Pretendard,Helvetica,Arial,'Noto Sans KR','Malgun Gothic',sans-serif;line-height:1.6}
+    a{color:var(--accent);text-decoration:none}
+    .container{margin:0 50px 0 50px;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+    nav a{margin-left:16px;font-weight:600;color:var(--muted)}
+    nav a:hover{color:var(--text)}
+    .btn{display:inline-block;padding:12px 18px;border-radius:999px;font-weight:700;}
+    .btn-primary{background:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+    .btn-primarymin{background:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.05); padding: 4px 12px;
+      font-size: 14px;
+      border-radius: 8px;}
+    .btn-ghost{border:1px solid var(--border);color:var(--text);background:#fff}
+    .btn-outline{border:1px solid var(--border);color:var(--text);background:#fff}
+
+
+    .hero{background:linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45));padding:32px 0 8px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+    .hero h1{font-size:44px;line-height:1.15;margin:0 0 12px}
+    .sub{color:var(--muted)}
+    .card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:1px solid var(--border)}
+    .img-placeholder{height:320px;border-radius:12px;background:linear-gradient(180deg,#f3f7fc,#e9f0f8);display:flex;align-items:center;justify-content:center;border:1px dashed #c7d5e7;color:#5a6f86;font-weight:700}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+    .kpi{background:#f8fbff;border:1px solid var(--border);border-radius:12px;padding:14px}
+    .kpi .value{font-size:28px;font-weight:800}
+    .kpi .delta{font-weight:700}
+    .delta.up{color:var(--accent-2)}
+    .delta.down{color:var(--danger)}
+    .section{margin:48px 0 12px}
+    .section h2{margin:0 0 8px;font-size:28px}
+    .muted{color:var(--muted)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .price{font-size:28px;font-weight:900;margin:6px 0}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#e9f2ff;color:#174ea6;font-weight:700;font-size:12px;border:1px solid #c9dbff}
+    .list{margin:12px 0 0;padding:0;list-style:none}
+    .list li{margin:8px 0;display:flex;gap:8px;align-items:flex-start}
+    .list li:before{content:"•";color:#174ea6;font-weight:900;display:inline-block;line-height:1.2;margin-top:2px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    input,textarea{background:#fff;border:1px solid var(--border);border-radius:10px;color:var(--text);padding:12px;font-size:15px;box-shadow:0 1px 0 rgba(16,24,40,.02)}
+    textarea{min-height:120px;resize:vertical}
+    footer{margin-top:36px;border-top:1px solid var(--border);padding:24px 0;color:#4c5d72}
+    .footgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .footgrid h4{margin:0 0 8px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+    .chip{border:1px solid var(--border);padding:8px 12px;border-radius:999px;color:#4a5e75;background:#fff}
+    
+    
+
+    @media(max-width:960px){.hero{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.pricing{grid-template-columns:1fr}.contact{grid-template-columns:1fr}.footgrid{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.kpis{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.footgrid{grid-template-columns:1fr}
+	}
+
+
+  </style>
+  <style>    
+     .select-reset {border: none; outline: none;background: #f0f0f0 no-repeat right center;}
+ .parent {font-size: 14px; position: relative; display: inline-block; cursor: pointer; color: black;}
+ .parent:hover .tooltip {display: block;opacity: 1;}
+ .parent:hover .parent-title {display: block;opacity: 1;}
+ .parent:hover .parent-left {display: block;opacity: 1;} 
+ .parent:hover .parent-right {display: block;opacity: 1;}  
+ .parent:hover .parent-read {display: block;opacity: 1;}
+ .parent:hover .parent-black {display: block;opacity: 1;}
+ .tooltip {display: none;position: absolute;top: 100%; left: 50%;transform: translateX(-50%);margin-top: 8px;background: #333;color: #fff;padding: 6px 10px;border-radius: 4px;white-space: nowrap;z-index: 10;opacity: 0;transition: opacity 0.3s;}
+ .parent-title {display: none;position: absolute;top: 100%; left: -100%;transform: translateX(-50%);margin-top: 8px;background: #a8c7ea;color: #000000;padding: 3px 10px;border-radius: 4px;white-space: nowrap;z-index: 10;opacity: 0;transition: opacity 0.3s;}
+ .parent-left {display: none;position: absolute;top: 100%; left: -100%;transform: translateX(-50%);margin-top: 8px;background: #a8c7ea;color: #000000;padding: 3px 10px;border-radius: 4px;white-space: nowrap;z-index: 10;opacity: 0;transition: opacity 0.3s;} 
+ .parent-right {display: none;position: absolute;top: 100%; left: 300%;transform: translateX(-50%);margin-top: 8px;background: #a8c7ea;color: #000000;padding: 3px 10px;border-radius: 4px;white-space: nowrap;z-index: 10;opacity: 0;transition: opacity 0.3s;}  
+ .parent-read  {display: none;position: absolute;top: 100%; left: 50%;transform: translateX(-50%);margin-top: 8px;background: #f79494;color: #000000;padding: 3px 10px;border-radius: 4px;white-space: nowrap;z-index: 10;opacity: 0;transition: opacity 0.3s;}
+ .parent-black {display: none;position: absolute;top: 100%; left: 50%;transform: translateX(-50%);margin-top: 8px;background: #c2c2c2;color: #000000;padding: 3px 10px;border-radius: 4px;white-space: nowrap;z-index: 10;opacity: 0;transition: opacity 0.3s;}
+
+  </style>
+</head>
+<body>  
+  <div class="container">
+    <header>
+      <div class="brand">Alog</div>      
+    </header>
+    <section class="hero"
+      style=" border:1px solid #000;background:
+              linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.65)),
+              url('https://readdy.ai/api/search-image?query=modern%20analytics%20dashboard%20with%20colorful%20charts%20and%20graphs%20on%20computer%20screens%20in%20a%20bright%20office%20environment%2C%20clean%20minimalist%20design%2C%20soft%20blue%20and%20white%20color%20scheme%2C%20professional%20tech%20workspace%2C%20multiple%20monitors%20showing%20data%20visualization%2C%20natural%20lighting%2C%20contemporary%20business%20setting&width=1920&height=1080&seq=hero-bg&orientation=landscape')
+              no-repeat center / cover;
+            padding: 10px 0; color: #1d2733;">
+      <div style="margin:0px 0px 50px 150px; width:500px; ">
+        <h1 style="color:black;">방문 현황을<br>한눈에 확인하세요</h1>
+        <br>
+        <h2><img src='alog/image/Google_Analytics7.png' style="height:30px;  border-radius: 8px;" >&nbsp;&nbsp;설정 이후 추가 태그 작업 없이<br> 모든 일자의 방문 지표를 확인할 수 있습니다 </h2>
+        
+        <select id="demoSelect" class="btn btn-primarymin" style="margin:0px 0;display:inline-block;min-width:90px;height:28px;font-size:14px;border-radius:8px;">
+          <option value="alog/ga/alog_ga.html">GA Only DEMO</option>
+          <option value="alog/enter/alog_enter.html">Enterprise DEMO</option>
+        </select>
+        <button onclick="
+          var url = document.getElementById('demoSelect').value;
+          window.open(url, '_blank');
+        " class="btn btn-primarymin" style="margin-left:6px;">바로가기</button>
+        <p>&nbsp;</p>
+
+        <b
+          <p>“GA 데이터, 추가 태깅 없이 바로 활용하세요.”</p>
+          <p>“Google Analytics 설치만 했다면, Alog가 분석은 대신합니다.”</p>
+          <p>“GA API 기반 자동화로 방문 통계, 더 쉽게.”</p>
+        </b>        
+      </div>
+      
+      <div class="card" style="border:1px solid #000;width:900px;height:650px;
+          margin:50px; background: rgba(255,255,255,0.92); color:#333;
+          border-radius:16px; padding:10px;  box-shadow:0 6px 18px rgba(0,0,0,0.2);">
+        
+         <div class="kpis" style="border:0px solid #000;border-radius: 8px;display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:5px;">
+          <div style="width: 200px;height: 110px; border:0px solid #000;background:#fff; border-radius:12px; padding:5px 5px 0px 5px; box-shadow:0 2px 8px rgba(0,0,0,0.50);">
+            
+            <img src='alog/image/prc_up.png' style="width: 100%; height: auto; " >
+            <font size=2>&nbsp;&nbsp;<b>상승 지표 (회색 테투리)</b></font>
+          </div>          
+          <div style="width: 200px;height: 110px; border:0px solid #000;background:#fff; border-radius:12px; padding:5px 5px 0px 5px; box-shadow:0 2px 8px rgba(0,0,0,0.5);">
+            
+            <img src='alog/image/prc_2up.png' style="width: 100%; height: auto; " >
+            <font size=2>&nbsp;&nbsp;<b>2주 연속 상승  (회색 배경 )</b></font>
+          </div>
+          <div style="width: 200px;height: 110px; border:0px solid #000;background:#fff; border-radius:12px; padding:5px 5px 0px 5px; box-shadow:0 2px 8px rgba(0,0,0,0.5);">
+            
+            <img src='alog/image/prc_down.png' style="width: 100%; height: auto; " >
+            <font size=2>&nbsp;&nbsp;<b>하락 지표 (빨간색 테투리)</b></font>
+          </div>
+          <div style="width: 200px;height: 110px; border:0px solid #000;background:#fff; border-radius:12px; padding:5px 5px 5px 5px; box-shadow:0 2px 8px rgba(0,0,0,0.5);">            
+            <img src='alog/image/prc_2down.png' style="width: 100%; height: auto; " >
+            <font size=2>&nbsp;&nbsp;<b>2주 연속 하락 (빨간색 배경)</b></font>
+          </div>
+        </div>   
+        <br>
+          <img src='alog/image/alog_main.gif' style="border:1px solid #000;max-width: 100%; height:auto; border-radius: 8px;" >           
+      </div>      
+    </section>
+
+    <section class="section" id="features">
+      <h2>Alog의 핵심 기능</h2>      
+      <div class="grid-3">
+
+        <div class="card">
+          <h3>추가 Tag 작업이 없습니다.</h3>
+          <P>GA (API) Key 생성으로 데이터 이관 준비 완료. (View)</P>
+          <P>(Google Cloud Console, 결제 계정 불필요, <a href="https://youtu.be/8MYzuG7JzLs?si=LqU9HBwtBQdV5kle" class="btn btn-primarymin" target="_blank">Key 생성방법</a> )</P>
+          <!--
+          <p><a href="https://console.cloud.google.com/" class="btn btn-primarymin" target="_blank">Google Cloud Console</a> Key 생성 (결제 계정 불필요)</p>
+          <p>Google Analytics >  관리 > 속성 > 속성 액세스 관리 에서 Viewer 권한 추가</p>
+          <p></p>             
+        -->
+        </div>        
+
+        <div class="card">
+          <h3>필요한 지표를 로컬 DB에 저장합니다. </h3>
+          <p>전일, 전주, 전월, 전년비를 한 번에 파악 할 수 있습니다. </p>
+          <p><table><tr><td><img src='alog/image/screen_02.png'></td><td><div class='parent'><img src='alog/image/screen_01.png' style='border:1px solid #000;' width="220px"><div class='parent-left'><img src='alog/image/screen_01.png' width="1200px"></div></div></td></tr></table></p> 
+        </div>
+
+        <div class="card">
+          <h3>ASP 서비스 </h3>
+          <p>AWS를 사용하여 안전하고 빠른 서비스를 제공합니다.</p>
+          <p>추가 서버 구입 및 IT 담당자가 불필요 합니다. </p>
+        </div>
+
+        <div class="card">
+          <h3>맞춤형 데시보드 (+ BigQuery)</h3>
+          <p><a href="https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema?hl=ko" class="btn btn-primarymin"  target="_blank">Google Analytics 항목 (478개)</a> 중 필요한 정보를 한눈에 파악할 수 있습니다.</p>
+          <P>사용자 변수 적용 가능</P>
+          <P>(Google Cloud Console, 결제 계정 연결 필요, 약 10달러,월)</P>
+        </div>
+
+         <div class="card">
+          <h3>경로 분석 (+ BigQuery)</h3>          
+          <p><table><tr><Td>방문 경로별</Td><Td>방문자별 </Td></tr><tr><td><div class='parent'><img src='alog/image/tree_01.png' width="220px"><div class='parent-right'><img src='alog/image/tree_01.png' width="1200px"></div></div></td>
+             <td><div class='parent'><img src='alog/image/path_01.png' style='border:1px solid #000;' width="100px"><div class='parent-right'><img src='alog/image/path_01.png'></div></div></td></tr></table>
+          </p>           
+        </div>
+
+        <div class="card">
+          <h3>유입 / 이탈 (+ BigQuery)</h3>                    
+          <p><table><tr><Td>유입 채널</Td><Td>유입 메뉴 </Td></tr><tr><td><div class='parent'><img src='alog/image/bubble_01.png' width="220px"><div class='parent-left'><img src='alog/image/bubble_01.png'  width="900px"></div></div></td>
+             <td><div class='parent'><img src='alog/image/bubble_02.png' style='border:1px solid #000;' width="300px"><div class='parent-left'><img src='alog/image/bubble_02.png' ></div></div></td></tr></table>
+          </p>           
+        </div>
+
+       
+
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <h2>종류</h2>      
+      <div class="pricing">
+        <div class="card">
+          <h3>GA Only&nbsp;&nbsp;&nbsp; <a href='alog/ga/alog_ga.html'  class="btn btn-primarymin"   target="_new03ga">DEMO</a></h3>
+          <div class="price">30만원 </div>
+          <div class="muted">월 단위 <font size=1>(최초 설치비+6개월 : 300만원)</font></div>
+          <ul class="list">
+            <li> <B><font color=blue>Google Analytics 연동</font></B></li>
+            <li>방문지표 (PageView, 메뉴, 검색어 등)</li>
+            <li>활성 사용자</li>
+            <li>첫 구매자수</li>
+          </ul>          
+        </div>
+        <div class="card">          
+          <h3>Plus (GA + BigQuery)</h3>
+          <div class="price">100만원</div>
+          <div class="muted">월 단위 <font size=1>(최초 구축비+6개월 : 1,000만원, GCP[Bigquery] : 약 10달러)</font></div>
+          <ul class="list">
+            <li>GA Only 모든 기능</li>
+            <li><B><font color=blue>회원별 방문</font></B> (마케팅 솔루션과 연동)</li>
+            <li>재방문자 (지속 방문자)</li>
+            <li>이탈율 (메뉴별, 유입 채널별)</li>
+            <li>유입 채널</li>
+            <li>전환율 (주문, 장바구니)</li>            
+          </ul>          
+        </div>
+        <div class="card">
+          <h3>Enterprise (자체 Access Log , DataStory 등) &nbsp;&nbsp;&nbsp;<A href='alog/enter/alog_enter.html' class="btn btn-primarymin"  target="_new03ent">DEMO</A></h3>
+          <div class="price">150만원 </div>
+          <div class="muted">월 단위 <font size=1>(최초 구축비+6개월 : 3,000만원)</font></div>
+          <ul class="list">
+            <li> Plus (GA + BigQuery) 모든 기능</li>
+            <li><B><font color=blue>방문자별 경로 추적</font></B> (주문 실패자, 이탈자 등의 경로)</li>
+            <li>홈 구좌 방문 (Screenshot)<div class='parent'><img src='alog/image/account_screen_01.png' style='border:1px solid #000;' width="50px"><div class='parent-left'><img src='alog/image/account_screen_01.png' ></div></div></li>
+            <li>마케팅 시스템과 연동 가틍</li>
+          </ul>          
+        </div>
+      </div>
+      <p class="muted" style="margin-top:10px">* 모든 플랜은 ASP 형식으로 제공됩니다.(AWS 기반)</p>
+    </section>
+
+
+    <section class="section card" id="contact">
+      <h2>문의 방법  <button onclick="
+  location.href =
+    'mailto:alog@jskwak.pe.kr?subject=' + encodeURIComponent('Alog 솔루션 문의') +
+    '&body=' + encodeURIComponent(`--------------------------------------------------
+필요한 내용입니다. 수정 해주세요.
+ ● GA4 설정 시작월 : 2024년 3월 
+ ● 사용 중인 GA 유형 : 표준(무료) / 360 (유료)
+ ● GCP 결제 계정 설정 여부 : 유 / 무 / 확인 불가
+ ● 담당자 성함 및 연락처 : 홍길동 02-1234-1234
+--------------------------------------------------
+기타 사항은 추가 해 주시면 됩니다. 
+
+
+`);
+"> 메일 발송 </button></h2>
+      
+
+    </section>
+
+    <footer>      
+      <p style="margin-top:10px">© 2025 Alog. All rights reserved.</p>
+    </footer>
+  </div>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5T63FVCRF2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5T63FVCRF2');
+</script>
+  
+</body>
+</html>

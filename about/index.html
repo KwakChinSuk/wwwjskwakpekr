@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alog 회사 소개 | Google Analytics 방문 데이터 자동 수집 & 대시보드</title>
+
+  <!-- 기본 SEO -->
+  <meta name="description" content="Alog는 Google Analytics(및 GA4) 데이터를 API로 자동 수집하여 추가 태깅 없이 핵심 방문 지표를 한눈에 보여주는 대시보드 솔루션을 제공합니다. AWS 기반 ASP 서비스로 빠르고 안정적입니다.">
+  <meta name="keywords" content="Alog, Google Analytics, GA4, GA API, 방문 데이터, 대시보드, BigQuery, 웹 분석, ASP, AWS">
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Alog 회사 소개">
+  <meta property="og:description" content="GA 설치만 했다면, Alog가 분석은 대신합니다. 추가 태깅 없이 방문 지표를 자동 수집하고 시각화합니다.">
+  <meta property="og:url" content="https://www.jskwak.pe.kr/about">
+  <meta property="og:image" content="https://www.jskwak.pe.kr/images/alog-og.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alog 회사 소개">
+  <meta name="twitter:description" content="GA API 기반 자동화 대시보드 솔루션, 추가 태깅 없이 방문 지표를 한눈에.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- 스타일 (간단한 유틸리티 + 다크/라이트 대응) -->
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card: #111318;
+      --muted: #8a8f98;
+      --text: #e8eaed;
+      --brand: #4f8cff;
+      --accent: #6ee7b7;
+      --border: #22262d;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #ffffff;
+        --card: #ffffff;
+        --muted: #566070;
+        --text: #111318;
+        --border: #e8eaf0;
+      }
+    }
+    * { box-sizing: border-box; }
+    html,body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, Apple SD Gothic Neo, sans-serif; }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 12px 0; }
+    .logo { font-weight: 800; letter-spacing: -0.3px; }
+    .badge { display:inline-block; padding:4px 10px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--muted); }
+    .hero { padding: 48px 0 24px; display:grid; gap:18px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); line-height:1.2; margin:0; }
+    .hero p { font-size: clamp(15px, 2vw, 18px); color: var(--muted); margin:0; }
+    .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+    .btn { padding:12px 18px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--text); font-weight:600; }
+    .btn.primary { background: var(--brand); border-color: var(--brand); color:#fff; }
+    .grid { display:grid; gap:16px; grid-template-columns: repeat(12, 1fr); }
+    .card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; }
+    .section { padding: 32px 0; }
+    .section h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 16px; }
+    .list { display:grid; gap:12px; }
+    .kvs { display:grid; gap:16px; grid-template-columns: repeat(12, 1fr); }
+    .kvs .item { grid-column: span 12; }
+    @media (min-width: 800px) {
+      .kvs .item { grid-column: span 4; }
+    }
+    .muted { color: var(--muted); }
+    .pricing { display:grid; gap:16px; grid-template-columns: repeat(12, 1fr); }
+    .pricing .plan { grid-column: span 12; }
+    @media (min-width: 900px) {
+      .pricing .plan { grid-column: span 4; }
+    }
+    .plan h3 { margin: 0 0 6px; font-size: 18px; }
+    .plan .price { font-weight: 800; font-size: 22px; margin: 8px 0; }
+    .table { width:100%; border-collapse: collapse; }
+    .table th, .table td { border-bottom:1px solid var(--border); padding:10px 8px; text-align:left; font-size:14px; }
+    footer { padding: 32px 0 60px; color: var(--muted); font-size: 14px; }
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; font-size:12px; }
+  </style>
+
+  <!-- 구조화 데이터 (Organization) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Alog",
+    "url":"https://www.jskwak.pe.kr/",
+    "logo":"https://www.jskwak.pe.kr/images/alog-og.png",
+    "sameAs": []
+  }
+  </script>
+</head>
+<body>
+  <header class="container nav">
+    <div class="logo">Alog</div>
+    <nav style="display:flex; gap:14px; font-weight:600;">
+      <a href="#about">회사 소개</a>
+      <a href="#strengths">강점</a>
+      <a href="#features">핵심 기능</a>
+      <a href="#pricing">요금제</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">문의</a>
+    </nav>
+  </header>
+
+  <section class="container hero">
+    <span class="badge">회사 소개</span>
+    <h1>GA 데이터, <br/>추가 태깅 없이 바로 활용하세요.</h1>
+    <p>
+      Alog는 Google Analytics(및 GA4) 데이터를 <strong>API로 자동 수집</strong>하여
+      핵심 방문 지표를 <strong>직관적인 대시보드</strong>로 제공합니다.
+      AWS 기반의 <strong>ASP 서비스</strong>로 빠르고 안정적입니다.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="/#demo">데모 보기</a>
+      <a class="btn" href="#contact">도입 상담</a>
+    </div>
+  </section>
+
+  <section id="about" class="container section">
+    <h2>우리의 미션</h2>
+    <div class="grid">
+      <div class="card" style="grid-column: span 7;">
+        <p style="margin:0 0 8px;">
+          많은 기업이 GA를 설치해놓고도, 복잡한 화면과 산재된 지표 때문에
+          <strong>의사결정에 바로 쓰기 어려운 문제</strong>를 겪습니다.
+        </p>
+        <p style="margin:0;">
+          Alog는 <strong>추가 태깅 없이</strong> GA API로 데이터를 안전하게 수집하고,
+          전일/전주/전월/전년비 등 핵심 비교 지표를 <strong>한 번에</strong> 파악할 수 있도록 돕습니다.
+        </p>
+      </div>
+      <div class="card" style="grid-column: span 5;">
+        <div class="list">
+          <div class="pill">GA API 기반 자동화</div>
+          <div class="pill">추가 태깅 불필요</div>
+          <div class="pill">AWS 기반 ASP</div>
+          <div class="pill">BigQuery 확장 옵션</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="strengths" class="container section">
+    <h2>왜 Alog인가</h2>
+    <div class="kvs">
+      <div class="item card">
+        <h3>추가 Tag 작업 없음</h3>
+        <p class="muted">GA(또는 GA4) 설치만 되어 있다면, 별도의 이벤트 태깅 없이 시작합니다.</p>
+      </div>
+      <div class="item card">
+        <h3>로컬/클라우드 저장</h3>
+        <p class="muted">필요한 지표를 로컬 DB에 저장해 전일·전주·전월·전년비를 즉시 비교합니다.</p>
+      </div>
+      <div class="item card">
+        <h3>확장·연동 용이</h3>
+        <p class="muted">BigQuery 연동으로 사용자 변수, 경로 분석, 이탈/유입 분석까지 확장 가능합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="container section">
+    <h2>핵심 기능</h2>
+    <div class="grid">
+      <div class="card" style="grid-column: span 6;">
+        <h3>대시보드</h3>
+        <p class="muted">방문 수, 페이지뷰, 활성 사용자, 재방문자, 전환 등 핵심 지표를 한눈에.</p>
+        <ul>
+          <li>전일/전주/전월/전년 동기간 비교</li>
+          <li>상승/하락 지표 강조, 2주 연속 추세 표기</li>
+          <li>맞춤형 위젯 구성</li>
+        </ul>
+      </div>
+      <div class="card" style="grid-column: span 6;">
+        <h3>분석 확장 (BigQuery)</h3>
+        <p class="muted">유입·이탈, 경로 분석, 사용자 변수 등 심화 분석이 가능합니다.</p>
+        <ul>
+          <li>유입 채널/메뉴별 이탈, 전환 추적</li>
+          <li>방문자별 경로(장바구니 이탈, 주문 실패 등) 분석</li>
+          <li>마케팅/CRM과 연계한 회원별 방문 분석</li>
+        </ul>
+      </div>
+      <div class="card" style="grid-column: span 12;">
+        <h3>보안 & 인프라</h3>
+        <p class="muted">AWS 기반 ASP로 빠르고 안정적이며, 추가 서버/IT 인력이 필요 없습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="container section">
+    <h2>요금제 요약</h2>
+    <div class="pricing">
+      <div class="plan card">
+        <h3>GA Only</h3>
+        <div class="price">월 300,000원</div>
+        <p class="muted">최초 설치비 + 6개월: 3,000,000원</p>
+        <ul>
+          <li>GA 연동, 방문 지표(페이지뷰/메뉴/검색어 등)</li>
+          <li>활성 사용자, 첫 구매자 수</li>
+        </ul>
+        <a class="btn" href="/#demo">데모 보기</a>
+      </div>
+      <div class="plan card">
+        <h3>Plus (GA + BigQuery)</h3>
+        <div class="price">월 1,000,000원</div>
+        <p class="muted">최초 구축비 + 6개월: 10,000,000원 · GCP(BigQuery) 약 월 10달러</p>
+        <ul>
+          <li>회원별 방문/재방문자</li>
+          <li>유입 채널, 이탈률, 전환(주문/장바구니)</li>
+        </ul>
+        <a class="btn" href="/#demo">데모 보기</a>
+      </div>
+      <div class="plan card">
+        <h3>Enterprise</h3>
+        <div class="price">월 1,500,000원</div>
+        <p class="muted">최초 구축비 + 6개월: 30,000,000원</p>
+        <ul>
+          <li>자체 Access Log / DataStory 연동</li>
+          <li>방문자별 경로 추적, 마케팅 시스템 연동</li>
+          <li>홈 구좌 방문(Screenshot) 분석</li>
+        </ul>
+        <a class="btn" href="/#demo">데모 보기</a>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:10px;">* 모든 플랜은 AWS 기반 ASP 형태로 제공됩니다.</p>
+  </section>
+
+  <section id="process" class="container section">
+    <h2>도입 절차</h2>
+    <table class="table">
+      <thead>
+        <tr><th style="width:120px;">단계</th><th>내용</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01. 상담</td><td>목표 지표, 범위, 데이터 소스(GA/BigQuery/Access Log) 확인</td></tr>
+        <tr><td>02. 연동</td><td>GA API Key 설정 → 데이터 수집 테스트 (추가 태깅 불필요)</td></tr>
+        <tr><td>03. 설계</td><td>대시보드 위젯, 비교 지표(전일/전주/전월/전년) 정의</td></tr>
+        <tr><td>04. 배포</td><td>AWS 기반 ASP로 운영 시작 (확장/유지보수 포함)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="faq" class="container section">
+    <h2>자주 묻는 질문</h2>
+    <div class="grid">
+      <div class="card" style="grid-column: span 12;">
+        <h3>추가 태깅이 정말 필요 없나요?</h3>
+        <p class="muted">네. 기존 GA(또는 GA4) 설치만으로 시작하며, API를 통해 데이터를 수집합니다.</p>
+      </div>
+      <div class="card" style="grid-column: span 12;">
+        <h3>BigQuery는 필수인가요?</h3>
+        <p class="muted">아닙니다. GA Only로 시작 후, 유입/이탈/경로 등 심화 분석이 필요하면 BigQuery로 확장하실 수 있습니다.</p>
+      </div>
+      <div class="card" style="grid-column: span 12;">
+        <h3>인프라는 어떻게 운영되나요?</h3>
+        <p class="muted">AWS 기반 ASP로 제공되어 별도 서버 구매나 전담 IT 인력이 필요 없습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="container section">
+    <h2>문의</h2>
+    <p class="muted">도입/데모/견적 문의는 아래 메일로 부탁드립니다.</p>
+    <p><a class="btn primary" href="mailto:alog@jskwak.pe.kr?subject=Alog%20도입%20문의&body=회사명%2F담당자%2F연락처%0A관심%20플랜%3A%20GA%20Only%20%2F%20Plus%20%2F%20Enterprise%0A현재%20GA%20설치%20여부%3A%20예%2F아니오%0ABigQuery%20사용%20여부%3A%20예%2F아니오%0A요구%20지표%20예%3A%20전환%2C%20이탈%2C%20경로%20등">메일 보내기</a></p>
+    <p class="muted">영업시간: 평일 10:00–18:00 (KST)</p>
+  </section>
+
+  <footer class="container">
+    <div>© 2025 Alog. All rights reserved.</div>
+  </footer>
+</body>
+</html>
+

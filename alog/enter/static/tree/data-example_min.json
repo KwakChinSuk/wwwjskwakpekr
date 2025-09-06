@@ -1,0 +1,33 @@
+{"tree" :
+
+	{"n":"NODE NAME 1","t":"t1","c":"N1"
+		,"children" : [{"n":"NODE NAME 2.11","t":"t2","c":"N2.1"
+			,"children" : [{"n":"NODE NAME 3.1","t":"t3","c":"N3.1"
+				,"children" : [{"n":"NODE NAME 3.1","t":"t3","c":"N3.1"
+
+				}]
+
+			 }
+
+					  ]
+		 }
+		,{"n":"NODE NAME 2.2","t":"t3","c":"N2.2" }
+		,{"n":"NODE NAME 2.3","t":"t4","c":"N2.3",
+			"children" : [
+							{"n":"NODE NAME 3.3","t":"t5","c":"N3.3",
+								"children" : [
+												{"n":"NODE NAME 4.1","t":"t6","c":"N4.1"	}
+												]
+							}
+							,{"n":"NODE NAME 3.4","t":"t7","c":"N3.4",
+								"children" : [
+												{"n":"NODE NAME 4.2","t":"t8","c":"N4.2"		}
+									,{"n":"NODE NAME 4.2","t":"t9","c":"N4.2"		}
+											]
+							}
+						]
+		 }
+		]
+	}
+}
+

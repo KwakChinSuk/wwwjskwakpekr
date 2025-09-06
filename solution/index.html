@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alog | GA 데이터 자동 수집 & 대시보드 – 솔루션 특징</title>
+
+  <!-- 기본 SEO -->
+  <meta name="description" content="Alog는 Google Analytics 데이터를 API로 자동 수집하고, 추가 태깅 없이 핵심 방문 지표를 한눈에 보여주는 대시보드 솔루션입니다. BigQuery 확장으로 심화 분석까지 가능합니다.">
+  <meta name="keywords" content="Alog, Google Analytics, GA4, GA API, 방문 데이터, 대시보드, BigQuery, 웹 분석 솔루션">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Alog – 솔루션 특징">
+  <meta property="og:description" content="추가 태깅 없이 GA 데이터를 자동 수집하고 직관적인 대시보드로 보여드립니다.">
+  <meta property="og:url" content="https://www.jskwak.pe.kr/solution">
+  <meta property="og:image" content="https://www.jskwak.pe.kr/images/alog-og.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alog – 솔루션 특징">
+  <meta name="twitter:description" content="GA API 기반 자동화, 비교 지표, BigQuery 확장.">
+
+  <link rel="icon" href="/favicon.ico" />
+
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card: #111318;
+      --text: #e8eaed;
+      --muted: #8a8f98;
+      --brand: #4f8cff;
+      --accent: #6ee7b7;
+      --border: #22262d;
+      --ring: rgba(79,140,255,.25);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg:#ffffff; --card:#ffffff; --text:#111318; --muted:#566070; --border:#e8eaf0;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, Apple SD Gothic Neo, sans-serif; }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 12px 0; position: sticky; top:0; backdrop-filter: blur(8px); background: color-mix(in oklab, var(--bg) 85%, transparent); z-index: 50; border-bottom:1px solid var(--border); }
+    .logo { font-weight: 900; letter-spacing: -0.3px; }
+    .nav a { font-weight: 600; }
+    .btn { display:inline-block; padding:12px 18px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--text); font-weight:700; }
+    .btn.primary { background: var(--brand); border-color: var(--brand); color:#fff; box-shadow: 0 6px 22px var(--ring); }
+    .badge { display:inline-block; padding:4px 10px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--muted); }
+    .hero { padding: 56px 0 24px; display:grid; gap:18px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); line-height:1.2; margin:0; letter-spacing:-0.4px; }
+    .hero p { font-size: clamp(15px, 2vw, 18px); color:var(--muted); margin:0; }
+    .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+    .section { padding: 40px 0; }
+    .section h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 16px; }
+    .grid { display:grid; gap:16px; grid-template-columns: repeat(12, 1fr); }
+    .card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; }
+    .muted { color: var(--muted); }
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--muted); }
+    .list ul { margin:8px 0 0 18px; padding:0; line-height:1.7; }
+    .features .item { grid-column: span 12; }
+    @media (min-width: 900px) { .features .item { grid-column: span 6; } }
+    .table { width:100%; border-collapse: collapse; }
+    .table th, .table td { border-bottom:1px solid var(--border); padding:10px 8px; text-align:left; font-size:14px; }
+    footer { padding: 32px 0 60px; color: var(--muted); font-size: 14px; border-top:1px solid var(--border); margin-top:24px; }
+    .notice { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .chiprow { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+    .divider { height:1px; background:var(--border); margin: 12px 0 4px; }
+    .ok { color: var(--accent); font-weight:700; }
+    .warn { color: #f59e0b; font-weight:700; }
+  </style>
+
+  <!-- 구조화 데이터 (Product) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Alog",
+    "applicationCategory":"BusinessApplication",
+    "operatingSystem":"Web",
+    "url":"https://www.jskwak.pe.kr/solution",
+    "description":"GA(API)로 방문 데이터를 자동 수집하고 대시보드로 시각화하는 솔루션",
+    "offers": { "@type":"Offer", "price":"0", "priceCurrency":"KRW" }
+  }
+  </script>
+</head>
+<body>
+  <!-- Nav -->
+  <header class="container nav">
+    <div class="logo">Alog</div>
+    <nav style="display:flex; gap:14px;">
+      <a href="#intro">소개</a>
+      <a href="#features">특징</a>
+      <a href="#plans">플랜</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">문의</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="intro" class="container hero">
+    <span class="badge">솔루션 특징</span>
+    <h1>GA 데이터, <br>추가 태깅 없이 바로 활용하세요.</h1>
+    <p>
+      Alog는 Google Analytics(및 GA4) 데이터를 <strong>API로 자동 수집</strong>하고,
+      핵심 방문 지표를 <strong>직관적인 대시보드</strong>로 보여주는 솔루션입니다.
+      필요 시 <strong>BigQuery</strong>로 심화 분석까지 확장 가능합니다.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#contact">도입 상담</a>
+      <a class="btn" href="#features">특징 살펴보기</a>
+    </div>
+  </section>
+
+  <!-- 핵심 특징 섹션 -->
+  <section id="features" class="container section">
+    <h2>Alog – 솔루션 핵심 특징</h2>
+    <div class="grid features">
+      <!-- 1 -->
+      <article class="item card">
+        <h3>추가 Tag 작업 없음</h3>
+        <p class="muted">기존 GA(또는 GA4) 설치만 되어 있다면, 별도 이벤트 태깅 없이 바로 시작합니다. GA API Key 연동 후 곧바로 수집이 진행됩니다.</p>
+        <div class="chiprow">
+          <span class="pill">GA/GA4 지원</span>
+          <span class="pill">API 기반</span>
+          <span class="pill">빠른 도입</span>
+        </div>
+      </article>
+      <!-- 2 -->
+      <article class="item card">
+        <h3>비교 지표 자동 계산</h3>
+        <p class="muted">전일/전주/전월/전년 동기간을 자동 계산하여 변화 추세를 한눈에 파악합니다. 상승/하락, 연속 추세도 함께 강조합니다.</p>
+        <div class="chiprow">
+          <span class="pill">전일/전주/전월/전년비</span>
+          <span class="pill">추세 강조</span>
+          <span class="pill">경영 요약</span>
+        </div>
+      </article>
+      <!-- 3 -->
+      <article class="item card">
+        <h3>맞춤형 대시보드</h3>
+        <p class="muted">업무 목적에 맞춘 위젯 구성이 가능합니다. 방문 수, 페이지뷰, 활성 사용자, 재방문자, 전환 등 핵심 지표를 보기 좋게 정리합니다.</p>
+        <div class="chiprow">
+          <span class="pill">마케팅/전환</span>
+          <span class="pill">콘텐츠</span>
+          <span class="pill">경영 요약</span>
+        </div>
+      </article>
+      <!-- 4 -->
+      <article class="item card">
+        <h3>AWS 기반 ASP</h3>
+        <p class="muted">보안성과 가용성을 갖춘 클라우드 환경에서 안정적으로 운영됩니다. 추가 서버 구매나 전담 IT 인력 없이 구독 형태로 이용하세요.</p>
+        <div class="chiprow">
+          <span class="pill">안정성</span>
+          <span class="pill">보안</span>
+          <span class="pill">구독형</span>
+        </div>
+      </article>
+      <!-- 5 -->
+      <article class="item card">
+        <h3>BigQuery 확장(선택)</h3>
+        <p class="muted">유입/이탈, 경로, 사용자 변수 등 심화 분석이 필요할 때 BigQuery로 손쉽게 확장할 수 있습니다.</p>
+        <div class="chiprow">
+          <span class="pill">경로 분석</span>
+          <span class="pill">유입·이탈</span>
+          <span class="pill">사용자 변수</span>
+        </div>
+        <div class="notice">* BigQuery 사용 시 GCP 비용이 소액 발생할 수 있습니다.</div>
+      </article>
+      <!-- 6 -->
+      <article class="item card">
+        <h3>간편한 도입 절차</h3>
+        <table class="table">
+          <thead><tr><th style="width:120px;">단계</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>01. 상담</td><td>목표 지표, 데이터 소스(GA/BigQuery) 확인</td></tr>
+            <tr><td>02. 연동</td><td>GA API Key 설정 및 수집 테스트</td></tr>
+            <tr><td>03. 설계</td><td>대시보드 위젯·비교 지표 정의</td></tr>
+            <tr><td>04. 운영</td><td>AWS 기반 ASP로 서비스 시작</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+  </section>
+
+  <!-- 플랜 요약 (선택) -->
+  <section id="plans" class="container section">
+    <h2>요금/플랜 요약</h2>
+    <div class="grid">
+      <article class="card" style="grid-column: span 12;">
+        <div class="grid" style="gap:16px;">
+          <div class="card" style="grid-column: span 12; padding:16px;">
+            <h3 style="margin:0 0 6px;">GA Only</h3>
+            <p class="muted" style="margin:0;">GA 연동, 방문 지표(방문 수·PV·활성 사용자 등), 비교 지표 제공</p>
+          </div>
+          <div class="card" style="grid-column: span 12; padding:16px;">
+            <h3 style="margin:0 0 6px;">Plus (GA + BigQuery)</h3>
+            <p class="muted" style="margin:0;">유입·이탈·경로·사용자 변수 등 심화 분석, 간단한 비용으로 확장</p>
+          </div>
+          <div class="card" style="grid-column: span 12; padding:16px;">
+            <h3 style="margin:0 0 6px;">Enterprise</h3>
+            <p class="muted" style="margin:0;">자체 로그/마케팅 시스템 연동, 대시보드 커스터마이징 및 운영 지원</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="container section">
+    <h2>자주 묻는 질문</h2>
+    <div class="grid">
+      <article class="card" style="grid-column: span 12;">
+        <h3>추가 태깅이 정말 필요 없나요?</h3>
+        <p class="muted">네. 기존 GA(또는 GA4) 설치만으로 시작하며, API를 통해 데이터를 수집합니다.</p>
+      </article>
+      <article class="card" style="grid-column: span 12;">
+        <h3>BigQuery는 필수인가요?</h3>
+        <p class="muted">아닙니다. GA Only로 시작 후, 심화 분석이 필요하면 Plus/Enterprise로 확장하세요.</p>
+      </article>
+      <article class="card" style="grid-column: span 12;">
+        <h3>인프라는 어떻게 운영되나요?</h3>
+        <p class="muted">AWS 기반 ASP로 제공되며, 추가 서버 구매나 전담 IT 인력 없이 사용 가능합니다.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 문의 -->
+  <section id="contact" class="container section">
+    <h2>문의</h2>
+    <p class="muted">도입/데모/견적 문의는 아래 메일로 부탁드립니다.</p>
+    <p>
+      <a class="btn primary" href="mailto:alog@jskwak.pe.kr?subject=Alog%20도입%20문의&body=회사명%2F담당자%2F연락처%0A관심%20플랜%3A%20GA%20Only%20%2F%20Plus%20%2F%20Enterprise%0A현재%20GA%20설치%20여부%3A%20예%2F아니오%0ABigQuery%20사용%20여부%3A%20예%2F아니오%0A요구%20지표%20예%3A%20전환%2C%20이탈%2C%20경로%20등">메일 보내기</a>
+    </p>
+    <div class="divider"></div>
+    <p class="notice">영업시간: 평일 10:00–18:00 (KST)</p>
+  </section>
+
+  <footer class="container">
+    <div>© 2025 Alog. All rights reserved.</div>
+  </footer>
+</body>
+</html>
+
