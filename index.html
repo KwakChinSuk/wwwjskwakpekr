@@ -272,26 +272,73 @@
       <p class="muted" style="margin-top:10px">* 모든 플랜은 ASP 형식으로 제공됩니다.(AWS 기반)</p>
     </section>
 
+<section class="section card" id="contact">
+  <h2>문의 방법 (alog@jskwak.pe.kr)</h2>
 
-    <section class="section card" id="contact">
-      <h2>문의 방법  <button onclick="
-  location.href =
-    'mailto:alog@jskwak.pe.kr?subject=' + encodeURIComponent('Alog 솔루션 문의') +
-    '&body=' + encodeURIComponent(`--------------------------------------------------
-필요한 내용입니다. 수정 해주세요.
- ● GA4 설정 시작월 : 2024년 3월 
- ● 사용 중인 GA 유형 : 표준(무료) / 360 (유료)
- ● GCP 결제 계정 설정 여부 : 유 / 무 / 확인 불가
- ● 담당자 성함 및 연락처 : 홍길동 02-1234-1234
+  <!-- 페이지 head 쪽에도 반드시 추가: <meta charset="utf-8"> -->
+  <form id="inqForm" accept-charset="UTF-8">
+    <label>
+      GA4 설정 시작월:
+      <input type="text" name="ga4_start" value="2024년 3월">
+    </label>
+    <br><br>
+
+    <label>
+      사용 중인 GA 유형:
+      <select name="ga_type">
+        <option value="표준(무료)">표준(무료)</option>
+        <option value="360 (유료)">360 (유료)</option>
+      </select>
+    </label>
+    <br><br>
+
+    <label>
+      GCP 결제 계정 설정 여부:
+      <select name="gcp_billing">
+        <option value="유">유</option>
+        <option value="무">무</option>
+        <option value="확인 불가">확인 불가</option>
+      </select>
+    </label>
+    <br><br>
+
+    <label>
+      담당자 성함 및 연락처:
+      <input type="text" name="contact" placeholder="홍길동 02-1234-1234">
+    </label>
+    <br><br>
+
+    <label>
+      기타 사항:<br>
+      <textarea name="etc" rows="5" cols="40" placeholder="추가 사항을 입력해주세요."></textarea>
+    </label>
+    <br><br>
+
+    <button type="submit">메일 발송</button>
+  </form>
+</section>
+
+<script>
+document.getElementById('inqForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const f = e.target;
+  const subject = 'Alog 솔루션 문의';
+  const body =
+`--------------------------------------------------
+● GA4 설정 시작월 : ${f.ga4_start.value}
+● 사용 중인 GA 유형 : ${f.ga_type.value}
+● GCP 결제 계정 설정 여부 : ${f.gcp_billing.value}
+● 담당자 성함 및 연락처 : ${f.contact.value}
 --------------------------------------------------
-기타 사항은 추가 해 주시면 됩니다. 
+기타 사항:
+${f.etc.value}
+`;
 
+  const mailto = `mailto:alog@jskwak.pe.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+});
+</script>
 
-`);
-"> 메일 발송 </button></h2>
-      
-
-    </section>
 
     <footer>      
       <p style="margin-top:10px">© 2025 Alog. All rights reserved.</p>
